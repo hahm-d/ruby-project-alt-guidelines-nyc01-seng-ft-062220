@@ -10,22 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_07_142320) do
+ActiveRecord::Schema.define(version: 2020_07_08_194959) do
 
-  create_table "dishes", force: :cascade do |t|
+  create_table "dish_searches", force: :cascade do |t|
     t.integer "recipe_id"
     t.integer "user_id"
     t.integer "user_like"
   end
 
-  create_table "favorites", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "tasty_remote_id"
+  create_table "instructions", force: :cascade do |t|
+    t.text "step"
+    t.integer "recipe_id"
   end
 
   create_table "recipes", force: :cascade do |t|
     t.string "name"
     t.integer "tasty_remote_id"
+    t.integer "calories"
+    t.text "description"
+    t.integer "total_time"
+    t.integer "num_serving"
+    t.text "keywords"
   end
 
   create_table "search_histories", force: :cascade do |t|
@@ -39,6 +44,7 @@ ActiveRecord::Schema.define(version: 2020_07_07_142320) do
     t.date "dob"
     t.string "f_food"
     t.string "username"
+    t.string "password"
   end
 
 end
