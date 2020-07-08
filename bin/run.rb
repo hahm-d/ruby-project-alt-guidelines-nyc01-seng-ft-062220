@@ -74,7 +74,7 @@ def new_user
     fav = gets.chomp
 
     User.create(f_name: first, l_name: last, username: username, dob: dob, f_food: fav)
-    userid = User.validmember(user, pass)
+    userid = User.validmember(username, userpass)
     usermenu(userid) 
 end
 
