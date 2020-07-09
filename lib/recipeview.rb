@@ -17,9 +17,17 @@ def view_recipe(userid, recipe_remote_id)
     puts 
     puts Rainbow("Instructions: #{many_instructions.step}").blue.bright
     #check if relationship already exists
-    dup_check = DishSearch.where(recipe: this_recipe, user_id: userid).exists?
-    if dup_check == false
-    DishSearch.create(recipe: this_recipe, user_id: userid)
+    dup_check = DishSearch.find_by(recipe: this_recipe, user_id: userid)
+    if dup_check == nil
+        dup_check = DishSearch.create(recipe: this_recipe, user_id: userid)
     end
+
+    #ADD condition to see if dish is aready favorite 
     #prompt user if they want to favorite / like
+    prompt = TTY::Prompt.new 
+    userchoice = prompt.select("Add this recipe to favorites?", %w(Yes No))
+    if userchoice == "Yes"
+        DishSearch.update(dup_check.id, user_like: 1)
+    end
+    user_helper
 end

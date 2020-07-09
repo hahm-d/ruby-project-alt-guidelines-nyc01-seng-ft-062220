@@ -3,7 +3,6 @@ require 'net/http'
 require 'openssl'
 require 'dotenv'
 require 'json'
-
 Dotenv.load
 
 
@@ -79,8 +78,6 @@ def searchForRecipe(word) #word is "cheesecake or apple pie"
     response = http.request(request)
     bodyparse = JSON.parse(response.read_body)
 
-    bodyparse['results'].map do |json|
-        puts "Name: #{json['name']} ||| Tasty Remote ID: #{json['id']} ||| Serving Number: #{json['num_servings']}}"
-    end
-  
+  puts bodyparse['results'].map {|json| "Tasty ID: #{json['id']}, Recipe Name: #{json['name']}]}\n"}
+
 end

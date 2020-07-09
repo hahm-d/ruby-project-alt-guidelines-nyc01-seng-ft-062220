@@ -1,6 +1,5 @@
 
 def user_helper
-
     puts Rainbow("****************************************************************").blue 
     puts "                          " + Rainbow("Main Menu").white.bright.bg(:blue)
     puts Rainbow("List of commands:").green.bright
@@ -8,7 +7,7 @@ def user_helper
     puts Rainbow("    Favorites ").yellow.bright
     puts Rainbow("        History ").yellow.bright
 
-    puts Rainbow("use any of the methods above!").green.bright
+    puts Rainbow("Type any of the commands above!").green.bright
     puts Rainbow("****************************************************************").blue 
 end
 
@@ -19,14 +18,12 @@ end
 def usermenu(userid)
 
 user_helper
-
     while user_input = gets.chomp.downcase
         case user_input   # search
         when 'search' 
-            puts "would you like to search by recipe id? [y/n] "
-            user_input2 = gets.chomp.downcase
-
-            if user_input2 == 'y' || user_input2 == 'yes'
+            prompt = TTY::Prompt.new 
+            userchoice = prompt.select("would you like to search by recipe id?", %w(Yes No))
+            if userchoice == "Yes"
                 puts "enter id: "
                 user_input2 = gets.chomp.downcase
                 #API call using input 
@@ -34,7 +31,7 @@ user_helper
                 if validation == "Found!"
                     view_recipe(userid, user_input2)
                 end
-            elsif user_input2 == 'n' || user_input2 == 'no'
+            else userchoice == "No"
                 puts "search Tasty recipes by name: "
                 user_input2 = gets.chomp.downcase
                 # API call happens (finds list of recipes)
@@ -44,11 +41,6 @@ user_helper
 
         when 'favorites' # user can delete / view favorite recipes   
             fav = DishSearch.user_like(userid)
-            if fav.blank?
-                puts `clear`
-                puts Rainbow("Your favorite's list is empty").green
-                user_helper
-            else
                 puts `clear`
                 puts "Here are your favorites: "
                 fav.each.with_index {|val, i| puts "number: #{i + 1}  #{val}" if val}
@@ -61,29 +53,32 @@ user_helper
                     local_dish_id = DishSearch.user_dish(userid, recipe_name) 
                     DishSearch.destroy(local_dish_id)
                     puts Rainbow("removed! type: Favorites to see updated list").blue.bright.bg(:white)
+                    user_helper
                 else
                     user_helper
                 end
-            end
 
         when 'history'  # user delete or view search history
             hist = SearchHistory.user_history(userid)
-            puts "Here is your search history: #{hist}"
-            puts
-            puts Rainbow("Delete history? [y/n]").yellow
-            user_input2 = gets.chomp.downcase
-
-            if user_input2 == 'y'
-                SearchHistory.clear_history(userid)
-                puts Rainbow("Search history deleted!").blue.bright.bg(:white)
+            if hist.any? 
+                puts "Here is your search history: #{hist}"
+                puts
+                prompt = TTY::Prompt.new 
+                userchoice = prompt.select("Delete history?", %w(Yes No))
+                if userchoice == "Yes"
+                    SearchHistory.clear_history(userid)
+                    puts Rainbow("Search history deleted!").blue.bright.bg(:white)
+                end
+            else
+                puts Rainbow("No search history available.").black.bg(:white)
+                puts 
             end
             user_helper
 
         when 'exit'
             puts `clear`
             puts Rainbow("Good Bye! See you again!").black.bg(:white)
-            puts
-            break
+            exit
 
         else 
             puts `clear` 

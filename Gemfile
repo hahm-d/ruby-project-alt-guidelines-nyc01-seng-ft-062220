@@ -10,4 +10,4 @@ gem "faker"
 gem "httparty"
 gem "rainbow"
 gem "dotenv"
-#gem 'tty-prompt'
+gem "tty-prompt" #cool way for user inputs

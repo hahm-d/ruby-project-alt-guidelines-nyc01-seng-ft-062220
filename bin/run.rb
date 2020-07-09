@@ -2,9 +2,9 @@ require_relative '../config/environment'
 
 puts Rainbow("
     ______)              _____                     _____          
-(, /                 (, /   )        ,         (, /  |         
+  (, /                 (, /   )        ,         (, /  |         
     /   _   _  _/_       /__ /  _  _    __    _    /---| __  __  
-) /   (_(_/_)_(__(_/_) /   \__(/_(___(_/_)__(/_) /    |_/_)_/_)_
+ ) /   (_(_/_)_(__(_/_) /   \__(/_(___(_/_)__(/_) /    |_/_)_/_)_
 (_/              .-/ (_/             .-/       (_/    .-/ .-/    
                 (_/                 (_/              (_/ (_/     
 
@@ -13,13 +13,11 @@ puts Rainbow("
 
 #Greeting message - Tasty App
 
+
 puts Rainbow("Welcome to ").green + Rainbow("Tasty Recipe App!").blue.bright.bg(:white)
-puts Rainbow("Start by creating an account if this is your first time here:").green
-puts Rainbow("new user").blue.bright
-puts Rainbow("For returning users:").green
-puts Rainbow("login").blue.bright
-puts Rainbow("For list of available commands type: ").green
-puts Rainbow("tasty").blue.bright
+puts Rainbow("Start by creating an account if this is your first time here.").green.bright
+puts Rainbow("For returning users: login").green.bright
+puts Rainbow("For list of available commands type: tasty").green.bright
 
 
 
@@ -28,8 +26,14 @@ def tasty_help
     puts Rainbow("****************************************************************").blue
     puts Rainbow("Here are the list of commands:\n").cyan
     puts Rainbow("new user").yellow + "           # create new user" 
-    puts Rainbow("login").green + "              # login with username"
-    puts Rainbow("exit").magenta + "               # quit application"
+    puts Rainbow("login").yellow + "              # login with username"
+    puts Rainbow("exit").yellow + "               # quit application"
+    puts Rainbow("****************************************************************").blue
+    puts Rainbow("After log-in, User options:\n").cyan 
+    puts Rainbow("Search by Recipe name or recipe id").magenta  
+    puts Rainbow("Add recipe to favorites").magenta         
+    puts Rainbow("View/delete favorite Recipe list").magenta 
+    puts Rainbow("View/delete search history").magenta 
     puts Rainbow("****************************************************************").blue
 end
 
@@ -90,23 +94,24 @@ def login_user
 end
 
 
-while user_input = gets.chomp
-    case user_input
-    when 'tasty' 
-        tasty_help
-    when 'new user'
-        new_user
-    when 'login'
+prompt = TTY::Prompt.new
+choices = [
+    {name: 'login', value: 1},
+    {name: 'register', value: 2},
+    {name: 'tasty options', value: 3},
+    {name: 'exit', value: 4}
+    ]
+while pick = prompt.select("Select your pick?", choices)
+    case pick
+    when 1
         login_user
-        break
-    when 'exit'
+    when 2
+        new_user
+    when 3
+        tasty_help
+    when 4
         puts `clear`
         puts Rainbow("Time for dishes! See you again!").white.bg(:blue)
-        puts
-        break
-    else 
-        puts `clear`
-        puts "Invalid response. Please try again."
-        puts "Type tasty for available options."
+        exit
     end
 end
