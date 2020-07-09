@@ -22,12 +22,11 @@ def recipeDetail(recipe_remote_id)
     response = http.request(request)
 
     if Recipe.exists?(tasty_remote_id: recipe_remote_id)
-        puts "found within our database"
-        Recipe.find_by(tasty_remote_id: recipe_remote_id)
+        return "Found!"
     elsif  response.read_body
         json = JSON.parse(response.read_body)
         
-        rec_name = json['slug']
+        rec_name = json['name']
         rec_desc = json['description']
         rec_serving = json['num_servings']
         rec_keyword = json['keywords']
@@ -47,8 +46,7 @@ def recipeDetail(recipe_remote_id)
         local_recipe_id = Recipe.find_by(tasty_remote_id: recipe_remote_id) 
         Instruction.create(step: add_instructions(instr_hash), recipe: local_recipe_id)
 
-        puts "Found Tasty Recipe!" 
-        local_recipe_id
+        return "Found!"
     else
         puts "Recipe ID: #{recipe_id} does not exist."
     end
@@ -82,7 +80,7 @@ def searchForRecipe(word) #word is "cheesecake or apple pie"
     bodyparse = JSON.parse(response.read_body)
 
     bodyparse['results'].map do |json|
-        puts "Name: #{json['name']},     Tasty Remote ID: #{json['id']},     Serving Number: #{json['num_servings']}}"
+        puts "Name: #{json['name']} ||| Tasty Remote ID: #{json['id']} ||| Serving Number: #{json['num_servings']}}"
     end
   
 end

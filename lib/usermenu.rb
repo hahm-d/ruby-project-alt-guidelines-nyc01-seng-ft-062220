@@ -1,14 +1,15 @@
+
 def user_helper
-puts  <<PARAGRAPH
-        
-    Main Menu
-    List of commands: Search, Favorites, History
-    
-    use any of the methods above!
-****************************************************************  
 
-PARAGRAPH
+    puts Rainbow("****************************************************************").blue 
+    puts "                          " + Rainbow("Main Menu").white.bright.bg(:blue)
+    puts Rainbow("List of commands:").green.bright
+    puts Rainbow("  Search ").yellow.bright
+    puts Rainbow("    Favorites ").yellow.bright
+    puts Rainbow("        History ").yellow.bright
 
+    puts Rainbow("use any of the methods above!").green.bright
+    puts Rainbow("****************************************************************").blue 
 end
 
 def is_integer(string)
@@ -29,12 +30,15 @@ user_helper
                 puts "enter id: "
                 user_input2 = gets.chomp.downcase
                 #API call using input 
-                recipeDetail(user_input2)
+                validation = recipeDetail(user_input2)
+                if validation == "Found!"
+                    view_recipe(userid, user_input2)
+                end
             elsif user_input2 == 'n' || user_input2 == 'no'
                 puts "search Tasty recipes by name: "
                 user_input2 = gets.chomp.downcase
                 # API call happens (finds list of recipes)
-                searchForRecipe(user_input2)
+                validation = searchForRecipe(user_input2)
                 SearchHistory.create(s_text: user_input2, user_id: userid)
             end
 
@@ -42,7 +46,7 @@ user_helper
             fav = DishSearch.user_like(userid)
             if fav.blank?
                 puts `clear`
-                puts "Your favorite's list is empty"
+                puts Rainbow("Your favorite's list is empty").green
                 user_helper
             else
                 puts `clear`
@@ -56,7 +60,7 @@ user_helper
                     recipe_name = fav[user_input2.to_i - 1]
                     local_dish_id = DishSearch.user_dish(userid, recipe_name) 
                     DishSearch.destroy(local_dish_id)
-                    puts "removed! type: Favorites to see updated list"
+                    puts Rainbow("removed! type: Favorites to see updated list").blue.bright.bg(:white)
                 else
                     user_helper
                 end
@@ -66,27 +70,24 @@ user_helper
             hist = SearchHistory.user_history(userid)
             puts "Here is your search history: #{hist}"
             puts
-            puts "Delete history? [y/n]"
+            puts Rainbow("Delete history? [y/n]").yellow
             user_input2 = gets.chomp.downcase
 
             if user_input2 == 'y'
                 SearchHistory.clear_history(userid)
-                puts "Search history deleted! "
+                puts Rainbow("Search history deleted!").blue.bright.bg(:white)
             end
             user_helper
 
         when 'exit'
             puts `clear`
-            puts "Good Bye! See you again!"
+            puts Rainbow("Good Bye! See you again!").black.bg(:white)
             puts
             break
 
         else 
-            puts `clear`
-            puts "Invalid response. Please try again."
-            puts
-            puts "Main menu: Search, Favorites, History"
-            puts "use any of the methods above"
+            puts `clear` 
+            user_helper
         end
 
     end

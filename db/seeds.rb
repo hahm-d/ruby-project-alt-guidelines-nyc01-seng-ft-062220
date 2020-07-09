@@ -22,15 +22,10 @@ recipe5 = Recipe.create(name: Faker::Food.dish, tasty_remote_id: 5806, calories:
 
 #belongs to recipes
 step1 = Instruction.create(step: Faker::Food.measurement + ", " + Faker::Food.ingredient, recipe: recipe1)
-step2 = Instruction.create(step: Faker::Food.measurement + ", " + Faker::Food.ingredient, recipe: recipe1)
-step3 = Instruction.create(step: Faker::Food.measurement + ", " + Faker::Food.ingredient, recipe: recipe1)
-step4 = Instruction.create(step: Faker::Food.measurement + ", " + Faker::Food.ingredient, recipe: recipe1)
-step5 = Instruction.create(step: Faker::Food.measurement + ", " + Faker::Food.ingredient, recipe: recipe1)
-step6 = Instruction.create(step: Faker::Food.measurement + ", " + Faker::Food.ingredient, recipe: recipe1)
-step7 = Instruction.create(step: Faker::Food.measurement + ", " + Faker::Food.ingredient, recipe: recipe1)
-step8 = Instruction.create(step: Faker::Food.measurement + ", " + Faker::Food.ingredient, recipe: recipe1)
-step9 = Instruction.create(step: Faker::Food.measurement + ", " + Faker::Food.ingredient, recipe: recipe1)
-step10 = Instruction.create(step: Faker::Food.measurement + ", " + Faker::Food.ingredient, recipe: recipe1)
+step2 = Instruction.create(step: Faker::Food.measurement + ", " + Faker::Food.ingredient, recipe: recipe2)
+step3 = Instruction.create(step: Faker::Food.measurement + ", " + Faker::Food.ingredient, recipe: recipe3)
+step4 = Instruction.create(step: Faker::Food.measurement + ", " + Faker::Food.ingredient, recipe: recipe4)
+step5 = Instruction.create(step: Faker::Food.measurement + ", " + Faker::Food.ingredient, recipe: recipe5)
 
 #join class for users and recipes
 dish1 = DishSearch.create(recipe: recipe1, user: user1, user_like: 1)

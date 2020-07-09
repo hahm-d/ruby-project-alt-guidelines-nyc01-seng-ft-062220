@@ -1,51 +1,43 @@
 require_relative '../config/environment'
 
-#def greet
-#    puts 'Welcome to Felp, the best resource for restaurant information in the world!'
-#end
-#cli = CommandLineInterface.new
-
-#cli.greet
-
-puts "
+puts Rainbow("
     ______)              _____                     _____          
-  (, /                 (, /   )        ,         (, /  |         
+(, /                 (, /   )        ,         (, /  |         
     /   _   _  _/_       /__ /  _  _    __    _    /---| __  __  
- ) /   (_(_/_)_(__(_/_) /   \__(/_(___(_/_)__(/_) /    |_/_)_/_)_
+) /   (_(_/_)_(__(_/_) /   \__(/_(___(_/_)__(/_) /    |_/_)_/_)_
 (_/              .-/ (_/             .-/       (_/    .-/ .-/    
                 (_/                 (_/              (_/ (_/     
 
-"
+").blue.bright
 
 
 #Greeting message - Tasty App
-puts  <<PARAGRAPH
 
-Welcome! 
-Start by creating an account if this is your first time here
-type: new user
-For returning user
-type: login
-For list of available commands type: tasty
-
-PARAGRAPH
+puts Rainbow("Welcome to ").green + Rainbow("Tasty Recipe App!").blue.bright.bg(:white)
+puts Rainbow("Start by creating an account if this is your first time here:").green
+puts Rainbow("new user").blue.bright
+puts Rainbow("For returning users:").green
+puts Rainbow("login").blue.bright
+puts Rainbow("For list of available commands type: ").green
+puts Rainbow("tasty").blue.bright
 
 
 
 def tasty_help
     puts `clear`
-    puts "Here are the list of commands:\n"
-    puts "new user             # create new user"
-    puts "login                # login with username"
-    puts "exit                 #quit application"
-    puts
+    puts Rainbow("****************************************************************").blue
+    puts Rainbow("Here are the list of commands:\n").cyan
+    puts Rainbow("new user").yellow + "           # create new user" 
+    puts Rainbow("login").green + "              # login with username"
+    puts Rainbow("exit").magenta + "               # quit application"
+    puts Rainbow("****************************************************************").blue
 end
 
 def valid_dob(dob)
     if dob.match('^(\d\d\d\d)(\d\d)(\d\d)$')
-       return true
+    return true
     else
-       return false 
+    return false 
     end
 end
 
@@ -90,10 +82,10 @@ def login_user
     userid = User.validmember(user, pass)
     if userid.is_a? Numeric
         puts
-        puts "Welcome back #{user}!"
+        puts Rainbow("Welcome back #{user}!").white.bg(:blue)
         usermenu(userid)
     else
-        puts "invalid log-in."
+        puts Rainbow("invalid log-in.").red.bright
     end
 end
 
@@ -109,7 +101,7 @@ while user_input = gets.chomp
         break
     when 'exit'
         puts `clear`
-        puts "Time for dishes! See you again!"
+        puts Rainbow("Time for dishes! See you again!").white.bg(:blue)
         puts
         break
     else 
