@@ -1,4 +1,4 @@
-Module One Final Project
+
 ========================================================================
  _____          _           __           _              _               
 /__   \__ _ ___| |_ _   _  /__\ ___  ___(_)_ __   ___  /_\  _ __  _ __  
@@ -12,7 +12,7 @@ Module One Final Project
 Tasty Recipe App!
 
 who?  
-For non-professional individuals who want to try new recipes.
+For individuals who want to try new recipes.
 
 what?  
 Search from thousands of recipes and save the very best.
@@ -50,8 +50,8 @@ Available Commands:
  2. Select 'tasty' for list of options
 ------------------------------------------------------------------------------------------
 
-URL: 
-
+GitHub
+URL: github.com:hahm-d/ruby-project-alt-guidelines-nyc01-seng-ft-062220.git
 
 ------------------------------------------------------------------------------------------
 

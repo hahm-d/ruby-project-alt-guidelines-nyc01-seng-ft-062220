@@ -11,6 +11,22 @@ def user_helper
     puts Rainbow("****************************************************************").blue 
 end
 
+def tasty_help
+    puts `clear`
+    puts Rainbow("****************************************************************").blue
+    puts Rainbow("Here are the list of commands:\n").cyan
+    puts Rainbow("register").yellow + "           # create new user" 
+    puts Rainbow("login").yellow + "              # login with username"
+    puts Rainbow("exit").yellow + "               # quit application"
+    puts Rainbow("****************************************************************").blue
+    puts Rainbow("After log-in, User options:\n").cyan 
+    puts Rainbow("Search by Recipe name or recipe id").magenta  
+    puts Rainbow("Add recipe to favorites").magenta         
+    puts Rainbow("View/delete favorite Recipe list").magenta 
+    puts Rainbow("View/delete search history").magenta 
+    puts Rainbow("****************************************************************").blue
+end
+
 def is_integer(string)
     string.to_i.to_s
 end
@@ -19,6 +35,68 @@ def yes_or_no(question)
     prompt = TTY::Prompt.new
     prompt.select(question, %w(Yes No))
 end
+
+def valid_dob(dob)
+    if dob.match('^(\d\d\d\d)(\d\d)(\d\d)$')
+    return true
+    else
+    return false 
+    end
+end
+
+def new_user
+    prompt = TTY::Prompt.new
+    puts `clear`
+    first = prompt.ask('Please enter your first name:')
+    last =  prompt.ask('Please enter your last name:')
+    check = false
+    while check == false do
+        dob = prompt.ask('Please enter your date of birth (yyyymmdd): ')
+        check = valid_dob(dob)
+        if check == true
+            break
+        end
+        puts "Please enter a valid date of birth (yyyymmdd):"
+    end
+
+    username = prompt.ask('Input a unique username: ')
+    pass_valid = 1
+    userpass = 2
+    while pass_valid != userpass
+        userpass = prompt.mask('What is your secret sauce? (password)')
+        pass_valid = prompt.mask('Re-enter your password')
+        if userpass == pass_valid 
+            break
+        end
+        puts "Password did not match. Try again."
+    end
+    fav = prompt.ask('favorite food? ')
+
+    User.create(f_name: first, l_name: last, username: username, password: userpass, dob: dob, f_food: fav)
+    userid = User.validmember(username, userpass)
+    usermenu(userid) 
+end
+
+
+def login_user
+    puts `clear`
+    prompt = TTY::Prompt.new
+    user = prompt.ask('What is your username?')
+    pass = prompt.mask('What is your secret sauce? (password)')
+
+    #database method to check if your exists
+    userid = User.validmember(user, pass)
+    if userid.is_a? Numeric
+        puts
+        puts Rainbow("Welcome back #{user}!").white.bg(:blue)
+        puts
+        usermenu(userid)
+    else
+        puts Rainbow("invalid log-in.").red.bright
+    end
+end
+
+
 
 def usermenu(userid)
 
