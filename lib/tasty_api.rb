@@ -77,7 +77,7 @@ def searchForRecipe(word) #word is "cheesecake or apple pie"
 
     response = http.request(request)
     bodyparse = JSON.parse(response.read_body)
-
-  puts bodyparse['results'].map {|json| "Tasty ID: #{json['id']}, Recipe Name: #{json['name']},--------- Image: #{json['thumbnail_url']}}\n"}
+    puts `clear`
+    puts bodyparse['results'].map {|json| "Tasty ID: #{json['id']}, Recipe Name: #{json['name']},--------- Image: #{json['thumbnail_url']}}\n"}
 
 end
