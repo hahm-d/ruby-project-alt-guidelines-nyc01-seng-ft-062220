@@ -1,5 +1,5 @@
 Module One Final Project
-
+========================================================================
  _____          _           __           _              _               
 /__   \__ _ ___| |_ _   _  /__\ ___  ___(_)_ __   ___  /_\  _ __  _ __  
   / /\/ _` / __| __| | | |/ \/// _ \/ __| | '_ \ / _ \//_\\| '_ \| '_ \ 
@@ -7,69 +7,53 @@ Module One Final Project
  \/   \__,_|___/\__|\__, \/ \_/\___|\___|_| .__/ \___\_/ \_/ .__/| .__/ 
                     |___/                 |_|              |_|   |_|    
 
-========================
-User Story: 
+========================================================================
+
+Tasty Recipe App!
 
 who?  
-For non-professional individuals who want to try new recipes
+For non-professional individuals who want to try new recipes.
 
 what?  
-Tasty cooking app. For sharing the most tasty recipes
+Search from thousands of recipes and save the very best.
 
-why?  
-Share experience, options about recipe.
----
+why?
+Keep a record of favorites and share with others.
+------------------------------------------------------------------------------------------
 User Experience: 
 
-1.  Users can search for Recipes and return a list to select from.
-2.  Users can also favorite a recipe they have selected, also remove favorites from personal list (User_favorite).
-3.  App stores user search history, Users can view/delete search history. 
-4.  Users can also like a recipe. 
-    bonus: Users can share recipes with other users.
+1.  Users can search for Recipes and return a list to view options.
+2.  From provided list users can search for a particular recipe by the Tasty Recipe ID.
+3.  Users can view the details of that recipe along with the instructions. 
+4.  Users can also favorite a recipe in addition to remove favorites from personal list.
+5.  Tasty Recipe App stores user search history. Users can view/delete search history. 
 
-What does your schema look like? 
+Future Updates: 
 
-- table: User
+1. Users should be able to share favorites with other users
+2. Prompt user if they would like to view Recipe Youtube video. 
 
-    f_name
+------------------------------------------------------------------------------------------
 
-    l_name
+How to Install: 
+  1. After cloning down this App run: bundle
+  2. Confirm all the gems are installed
 
-    dateofbirth
+How to run application: 
+  1. ruby bin/run.rb
 
-    favoritefood
+------------------------------------------------------------------------------------------
 
-    username 
+Available Commands:
+ 1. All commands are prompt based. As users navigate through the App, options will become
+ available. 
+ 2. Select 'tasty' for list of options
+------------------------------------------------------------------------------------------
 
-- table: UserFavorite
-
-    user_id (f)
-
-    recipe_id (f)
-
-    recipe_name
-
-- table: UserSearchHistory
-
-    search_text
-
-    user_id (f)
-
-- table: Dish
-
-    user_id (f) 
-
-    recipe_id (f)
-
-    total_likes
-
-- table: Recipe
-
-    ???
+URL: 
 
 
-
+------------------------------------------------------------------------------------------
 
 Tasty API link 
-
-API: [https://rapidapi.com/apidojo/api/tasty?endpoint=apiendpoint_96b832dc-ba57-4017-b930-9b129a633829](https://rapidapi.com/apidojo/api/tasty?endpoint=apiendpoint_96b832dc-ba57-4017-b930-9b129a633829)
+https://rapidapi.com/apidojo/api/tasty/details

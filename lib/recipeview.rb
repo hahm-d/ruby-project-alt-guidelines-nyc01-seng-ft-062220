@@ -3,8 +3,8 @@ require 'rainbow'
 def view_recipe(userid, recipe_remote_id)
     #find recipe instance 
     this_recipe = Recipe.find_by(tasty_remote_id: recipe_remote_id)
-
     puts `clear`
+    wok_image
     puts Rainbow("****************************************************************").green.bright
     puts Rainbow("Recipe Name:").blue + Rainbow("#{this_recipe.name}").cyan.bright
     puts Rainbow("Recipe Tasy ID:").blue + Rainbow("#{recipe_remote_id}").cyan

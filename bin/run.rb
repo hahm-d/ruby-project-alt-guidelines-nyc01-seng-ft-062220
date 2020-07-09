@@ -1,18 +1,6 @@
 require_relative '../config/environment'
 
-puts Rainbow("
-    ______)              _____                     _____          
-  (, /                 (, /   )        ,         (, /  |         
-    /   _   _  _/_       /__ /  _  _    __    _    /---| __  __  
- ) /   (_(_/_)_(__(_/_) /   \__(/_(___(_/_)__(/_) /    |_/_)_/_)_
-(_/              .-/ (_/             .-/       (_/    .-/ .-/    
-                (_/                 (_/              (_/ (_/     
-
-").blue.bright
-
-
-#Greeting message - Tasty App
-
+title
 
 puts Rainbow("Welcome to ").green + Rainbow("Tasty Recipe App!").blue.bright.bg(:white)
 puts Rainbow("Start by creating an account if this is your first time here.").green.bright
@@ -25,7 +13,7 @@ def tasty_help
     puts `clear`
     puts Rainbow("****************************************************************").blue
     puts Rainbow("Here are the list of commands:\n").cyan
-    puts Rainbow("new user").yellow + "           # create new user" 
+    puts Rainbow("register").yellow + "           # create new user" 
     puts Rainbow("login").yellow + "              # login with username"
     puts Rainbow("exit").yellow + "               # quit application"
     puts Rainbow("****************************************************************").blue
@@ -77,16 +65,16 @@ end
 
 def login_user
     puts `clear`
-    puts "Input username: "    
-    user = gets.chomp
-    puts "Input password: "
-    pass = gets.chomp 
+    prompt = TTY::Prompt.new
+    user = prompt.ask('What is your username?')
+    pass = prompt.mask("What is your secret sauce? (password)")
 
     #database method to check if your exists
     userid = User.validmember(user, pass)
     if userid.is_a? Numeric
         puts
         puts Rainbow("Welcome back #{user}!").white.bg(:blue)
+        puts
         usermenu(userid)
     else
         puts Rainbow("invalid log-in.").red.bright

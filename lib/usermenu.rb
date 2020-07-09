@@ -76,7 +76,7 @@ user_helper
                     end
                 end
             else
-                puts Rainbow("Nothing here... Please find a recipe!").blue.bright
+                puts Rainbow("Wait.. Nothing to see here... Please find a recipe!").blue.bright
                 puts
             end
             user_helper
