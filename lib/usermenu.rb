@@ -162,6 +162,7 @@ user_helper
         when 'history'  # user delete or view search history
             hist = SearchHistory.user_history(userid)
             if hist.any? 
+                puts `clear`
                 puts "Here is your search history: #{hist}"
                 puts
                 userchoice = yes_or_no("Delete history?")
@@ -170,6 +171,7 @@ user_helper
                     puts Rainbow("Search history deleted!").blue.bright.bg(:white)
                 end
             else
+                puts `clear`
                 puts Rainbow("No search history available.").black.bg(:white)
                 puts 
             end
